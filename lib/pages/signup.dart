@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:random_string/random_string.dart';
-
 import '../service/database.dart';
 import '../service/shared_pref.dart';
 import '../widget/widget_support.dart';
@@ -27,13 +25,13 @@ class _SignUpState extends State<SignUp> {
 
   final _formkey = GlobalKey<FormState>();
 
-  registration() async {
+  registration(email, password) async {
     if (password != null) {
       try {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
 
-        ScaffoldMessenger.of(context).showSnackBar((SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar((const SnackBar(
             backgroundColor: Colors.redAccent,
             content: Text(
               "Registered Successfully",
@@ -44,6 +42,7 @@ class _SignUpState extends State<SignUp> {
           "Name": namecontroller.text,
           "Email": mailcontroller.text,
           "Wallet": "0",
+          "password": passwordcontroller.text,
           "Id": Id,
         };
         print("allezzzzzzzzzzzzzzzzzzz");
@@ -52,20 +51,22 @@ class _SignUpState extends State<SignUp> {
         await SharedPreferenceHelper().saveUserEmail(mailcontroller.text);
         await SharedPreferenceHelper().saveUserWallet('0');
         await SharedPreferenceHelper().saveUserId(Id);
+        await SharedPreferenceHelper()
+            .saveUserPassword(passwordcontroller.text);
 
         // ignore: use_build_context_synchronously
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => BottomNav()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const BottomNav()));
       } on FirebaseException catch (e) {
         if (e.code == 'weak-password') {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               backgroundColor: Colors.orangeAccent,
               content: Text(
                 "Password Provided is too Weak",
                 style: TextStyle(fontSize: 18.0),
               )));
         } else if (e.code == "email-already-in-use") {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               backgroundColor: Colors.orangeAccent,
               content: Text(
                 "Account Already exsists",
@@ -85,7 +86,7 @@ class _SignUpState extends State<SignUp> {
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 2.5,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -99,15 +100,15 @@ class _SignUpState extends State<SignUp> {
                   EdgeInsets.only(top: MediaQuery.of(context).size.height / 3),
               height: MediaQuery.of(context).size.height / 2,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(40),
                       topRight: Radius.circular(40))),
-              child: Text(""),
+              child: const Text(""),
             ),
             Container(
-              margin: EdgeInsets.only(top: 60.0, left: 20.0, right: 20.0),
+              margin: const EdgeInsets.only(top: 60.0, left: 20.0, right: 20.0),
               child: Column(
                 children: [
                   Center(
@@ -116,14 +117,14 @@ class _SignUpState extends State<SignUp> {
                     width: MediaQuery.of(context).size.width / 1.5,
                     fit: BoxFit.cover,
                   )),
-                  SizedBox(
+                  const SizedBox(
                     height: 50.0,
                   ),
                   Material(
                     elevation: 5.0,
                     borderRadius: BorderRadius.circular(20),
                     child: Container(
-                      padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                      padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height / 1.8,
                       decoration: BoxDecoration(
@@ -133,14 +134,14 @@ class _SignUpState extends State<SignUp> {
                         key: _formkey,
                         child: Column(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 30.0,
                             ),
                             Text(
                               "Sign up",
                               style: AppWidget.HeadlineTextFeildStyle(),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 30.0,
                             ),
                             TextFormField(
@@ -154,9 +155,10 @@ class _SignUpState extends State<SignUp> {
                               decoration: InputDecoration(
                                   hintText: 'Name',
                                   hintStyle: AppWidget.semiBoldTextFeildStyle(),
-                                  prefixIcon: Icon(Icons.person_outlined)),
+                                  prefixIcon:
+                                      const Icon(Icons.person_outlined)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 30.0,
                             ),
                             TextFormField(
@@ -170,9 +172,9 @@ class _SignUpState extends State<SignUp> {
                               decoration: InputDecoration(
                                   hintText: 'Email',
                                   hintStyle: AppWidget.semiBoldTextFeildStyle(),
-                                  prefixIcon: Icon(Icons.email_outlined)),
+                                  prefixIcon: const Icon(Icons.email_outlined)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 30.0,
                             ),
                             TextFormField(
@@ -187,9 +189,10 @@ class _SignUpState extends State<SignUp> {
                               decoration: InputDecoration(
                                   hintText: 'Password',
                                   hintStyle: AppWidget.semiBoldTextFeildStyle(),
-                                  prefixIcon: Icon(Icons.password_outlined)),
+                                  prefixIcon:
+                                      const Icon(Icons.password_outlined)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 80.0,
                             ),
                             GestureDetector(
@@ -201,18 +204,19 @@ class _SignUpState extends State<SignUp> {
                                     password = passwordcontroller.text;
                                   });
                                 }
-                                registration();
+                                registration(email, password);
                               },
                               child: Material(
                                 elevation: 5.0,
                                 borderRadius: BorderRadius.circular(20),
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
                                   width: 200,
                                   decoration: BoxDecoration(
-                                      color: Color(0Xffff5722),
+                                      color: const Color(0Xffff5722),
                                       borderRadius: BorderRadius.circular(20)),
-                                  child: Center(
+                                  child: const Center(
                                       child: Text(
                                     "SIGN UP",
                                     style: TextStyle(
@@ -229,13 +233,15 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 70.0,
                   ),
                   GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => LogIn()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LogIn()));
                       },
                       child: Text(
                         "Already have an account? Login",

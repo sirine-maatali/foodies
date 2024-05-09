@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../service/shared_pref.dart';
 import '../widget/widget_support.dart';
 import 'bottomnav.dart';
 import 'forgotpassword.dart';
@@ -23,8 +24,19 @@ class _LogInState extends State<LogIn> {
 
   userLogin() async {
     try {
-      //  await FirebaseAuth.instance
-      //    .signInWithEmailAndPassword(email: email, password: password);
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((value) async {
+        User? currentUser = FirebaseAuth.instance.currentUser;
+        await SharedPreferenceHelper()
+            .saveUserName(currentUser!.displayName!.toString());
+        await SharedPreferenceHelper()
+            .saveUserEmail(currentUser.email!.toString());
+        await SharedPreferenceHelper().saveUserWallet('0');
+        await SharedPreferenceHelper().saveUserId(currentUser.uid);
+        await SharedPreferenceHelper()
+            .saveUserPassword(userpasswordcontroller.text);
+      });
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const BottomNav()));
     } on FirebaseAuthException catch (e) {

@@ -67,7 +67,7 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       body: name == null
           ? CircularProgressIndicator()
-          : Container(
+          : SingleChildScrollView(
               child: Column(
                 children: [
                   Stack(
@@ -97,9 +97,9 @@ class _ProfileState extends State<Profile> {
                                       onTap: () {
                                         getImage();
                                       },
-                                      child: profile == null
+                                      child: profile == ""
                                           ? Image.asset(
-                                              "images/boy.png",
+                                              "images/boy.jpg",
                                               height: 120,
                                               width: 120,
                                               fit: BoxFit.cover,
@@ -282,9 +282,9 @@ class _ProfileState extends State<Profile> {
                   SizedBox(
                     height: 30.0,
                   ),
-                  GestureDetector(
+                  /* GestureDetector(
                     onTap: () {
-                      AuthMethods().deleteuser();
+                      AuthMethods(context).deleteuser();
                     },
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 20.0),
@@ -328,10 +328,10 @@ class _ProfileState extends State<Profile> {
                   ),
                   SizedBox(
                     height: 30.0,
-                  ),
+                  ), */
                   GestureDetector(
                     onTap: () {
-                      AuthMethods().SignOut();
+                      AuthMethods(context).SignOut();
                     },
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 20.0),
