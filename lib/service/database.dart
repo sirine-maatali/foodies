@@ -45,4 +45,19 @@ class DatabaseMethods {
   //       .doc(id)
   //       .update({"Wallet": amount});
   // }
+
+  Future<void> deleteFood(String collectionName, String docId) async {
+    await FirebaseFirestore.instance
+        .collection(collectionName)
+        .doc(docId)
+        .delete();
+  }
+
+  Future<void> updateFood(String collectionName, String docId,
+      Map<String, dynamic> updatedData) async {
+    await FirebaseFirestore.instance
+        .collection(collectionName)
+        .doc(docId)
+        .update(updatedData);
+  }
 }

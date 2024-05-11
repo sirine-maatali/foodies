@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:demoproject/service/database.dart';
+import 'package:foodies/service/database.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_stripe/flutter_stripe.dart';
 

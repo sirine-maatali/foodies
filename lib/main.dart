@@ -1,7 +1,7 @@
-import 'package:demoproject/admin/admin_login.dart';
-import 'package:demoproject/admin/home_admin.dart';
-import 'package:demoproject/pages/onboard.dart';
-import 'package:demoproject/pages/signup.dart';
+import 'package:foodies/admin/admin_login.dart';
+import 'package:foodies/admin/home_admin.dart';
+import 'package:foodies/pages/onboard.dart';
+import 'package:foodies/pages/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_stripe/flutter_stripe.dart';
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: SignUp());
+        home: HomeAdmin());
   }
 }
 
@@ -97,6 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        leading: Image.asset('images/logo.png', width: 40, height: 40),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it

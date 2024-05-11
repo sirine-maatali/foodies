@@ -1,5 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:demoproject/pages/profile.dart';
+import 'package:foodies/pages/profile.dart';
 import 'package:flutter/material.dart';
 import '../widget/content_model.dart';
 import 'home.dart';

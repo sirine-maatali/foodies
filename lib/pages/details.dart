@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demoproject/service/database.dart';
-import 'package:demoproject/service/shared_pref.dart';
+import 'package:foodies/service/database.dart';
+import 'package:foodies/service/shared_pref.dart';
 import 'package:flutter/material.dart';
 
 import '../widget/widget_support.dart';
